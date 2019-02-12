@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.grade.project.grade.mapper.MchPayOrderMapper" >
+  <resultMap id="BaseResultMap" type="com.grade.project.grade.model.MchPayOrder" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="ORDER_NUM" property="orderNum" jdbcType="VARCHAR" />
+    <result column="USER_ID" property="userId" jdbcType="INTEGER" />
+    <result column="WX_USER_NAME" property="wxUserName" jdbcType="VARCHAR" />
+    <result column="PARENT_CODE" property="parentCode" jdbcType="VARCHAR" />
+    <result column="GENERAL_AGENT_CODE" property="generalAgentCode" jdbcType="VARCHAR" />
+    <result column="PAY_PRICE" property="payPrice" jdbcType="DECIMAL" />
+    <result column="PAY_MSG" property="payMsg" jdbcType="VARCHAR" />
+    <result column="PAY_STATUS" property="payStatus" jdbcType="INTEGER" />
+    <result column="IS_DEL" property="isDel" jdbcType="INTEGER" />
+    <result column="GMT_CREATE" property="gmtCreate" jdbcType="TIMESTAMP" />
+    <result column="GMT_MODIFIED" property="gmtModified" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, ORDER_NUM, USER_ID, WX_USER_NAME, PARENT_CODE, GENERAL_AGENT_CODE, PAY_PRICE, 
+    PAY_MSG, PAY_STATUS, IS_DEL, GMT_CREATE, GMT_MODIFIED
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.grade.project.grade.model.MchPayOrderExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from grade_mch_pay
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from grade_mch_pay
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from grade_mch_pay
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.grade.project.grade.model.MchPayOrderExample" >
+    delete from grade_mch_pay
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.grade.project.grade.model.MchPayOrder" >
+    insert into grade_mch_pay (ID, ORDER_NUM, USER_ID, 
+      WX_USER_NAME, PARENT_CODE, GENERAL_AGENT_CODE, 
+      PAY_PRICE, PAY_MSG, PAY_STATUS, 
+      IS_DEL, GMT_CREATE, GMT_MODIFIED
+      )
+    values (#{id,jdbcType=INTEGER}, #{orderNum,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, 
+      #{wxUserName,jdbcType=VARCHAR}, #{parentCode,jdbcType=VARCHAR}, #{generalAgentCode,jdbcType=VARCHAR}, 
+      #{payPrice,jdbcType=DECIMAL}, #{payMsg,jdbcType=VARCHAR}, #{payStatus,jdbcType=INTEGER}, 
+      #{isDel,jdbcType=INTEGER}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.grade.project.grade.model.MchPayOrder" >
+    insert into grade_mch_pay
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="orderNum != null" >
+        ORDER_NUM,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="wxUserName != null" >
+        WX_USER_NAME,
+      </if>
+      <if test="parentCode != null" >
+        PARENT_CODE,
+      </if>
+      <if test="generalAgentCode != null" >
+        GENERAL_AGENT_CODE,
+      </if>
+      <if test="payPrice != null" >
+        PAY_PRICE,
+      </if>
+      <if test="payMsg != null" >
+        PAY_MSG,
+      </if>
+      <if test="payStatus != null" >
+        PAY_STATUS,
+      </if>
+      <if test="isDel != null" >
+        IS_DEL,
+      </if>
+      <if test="gmtCreate != null" >
+        GMT_CREATE,
+      </if>
+      <if test="gmtModified != null" >
+        GMT_MODIFIED,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="orderNum != null" >
+        #{orderNum,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="wxUserName != null" >
+        #{wxUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="parentCode != null" >
+        #{parentCode,jdbcType=VARCHAR},
+      </if>
+      <if test="generalAgentCode != null" >
+        #{generalAgentCode,jdbcType=VARCHAR},
+      </if>
+      <if test="payPrice != null" >
+        #{payPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="payMsg != null" >
+        #{payMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="payStatus != null" >
+        #{payStatus,jdbcType=INTEGER},
+      </if>
+      <if test="isDel != null" >
+        #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="gmtCreate != null" >
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null" >
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.grade.project.grade.model.MchPayOrderExample" resultType="java.lang.Integer" >
+    select count(*) from grade_mch_pay
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update grade_mch_pay
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderNum != null" >
+        ORDER_NUM = #{record.orderNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userId != null" >
+        USER_ID = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.wxUserName != null" >
+        WX_USER_NAME = #{record.wxUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.parentCode != null" >
+        PARENT_CODE = #{record.parentCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.generalAgentCode != null" >
+        GENERAL_AGENT_CODE = #{record.generalAgentCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payPrice != null" >
+        PAY_PRICE = #{record.payPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.payMsg != null" >
+        PAY_MSG = #{record.payMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payStatus != null" >
+        PAY_STATUS = #{record.payStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.isDel != null" >
+        IS_DEL = #{record.isDel,jdbcType=INTEGER},
+      </if>
+      <if test="record.gmtCreate != null" >
+        GMT_CREATE = #{record.gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.gmtModified != null" >
+        GMT_MODIFIED = #{record.gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update grade_mch_pay
+    set ID = #{record.id,jdbcType=INTEGER},
+      ORDER_NUM = #{record.orderNum,jdbcType=VARCHAR},
+      USER_ID = #{record.userId,jdbcType=INTEGER},
+      WX_USER_NAME = #{record.wxUserName,jdbcType=VARCHAR},
+      PARENT_CODE = #{record.parentCode,jdbcType=VARCHAR},
+      GENERAL_AGENT_CODE = #{record.generalAgentCode,jdbcType=VARCHAR},
+      PAY_PRICE = #{record.payPrice,jdbcType=DECIMAL},
+      PAY_MSG = #{record.payMsg,jdbcType=VARCHAR},
+      PAY_STATUS = #{record.payStatus,jdbcType=INTEGER},
+      IS_DEL = #{record.isDel,jdbcType=INTEGER},
+      GMT_CREATE = #{record.gmtCreate,jdbcType=TIMESTAMP},
+      GMT_MODIFIED = #{record.gmtModified,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.grade.project.grade.model.MchPayOrder" >
+    update grade_mch_pay
+    <set >
+      <if test="orderNum != null" >
+        ORDER_NUM = #{orderNum,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="wxUserName != null" >
+        WX_USER_NAME = #{wxUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="parentCode != null" >
+        PARENT_CODE = #{parentCode,jdbcType=VARCHAR},
+      </if>
+      <if test="generalAgentCode != null" >
+        GENERAL_AGENT_CODE = #{generalAgentCode,jdbcType=VARCHAR},
+      </if>
+      <if test="payPrice != null" >
+        PAY_PRICE = #{payPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="payMsg != null" >
+        PAY_MSG = #{payMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="payStatus != null" >
+        PAY_STATUS = #{payStatus,jdbcType=INTEGER},
+      </if>
+      <if test="isDel != null" >
+        IS_DEL = #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="gmtCreate != null" >
+        GMT_CREATE = #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null" >
+        GMT_MODIFIED = #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.grade.project.grade.model.MchPayOrder" >
+    update grade_mch_pay
+    set ORDER_NUM = #{orderNum,jdbcType=VARCHAR},
+      USER_ID = #{userId,jdbcType=INTEGER},
+      WX_USER_NAME = #{wxUserName,jdbcType=VARCHAR},
+      PARENT_CODE = #{parentCode,jdbcType=VARCHAR},
+      GENERAL_AGENT_CODE = #{generalAgentCode,jdbcType=VARCHAR},
+      PAY_PRICE = #{payPrice,jdbcType=DECIMAL},
+      PAY_MSG = #{payMsg,jdbcType=VARCHAR},
+      PAY_STATUS = #{payStatus,jdbcType=INTEGER},
+      IS_DEL = #{isDel,jdbcType=INTEGER},
+      GMT_CREATE = #{gmtCreate,jdbcType=TIMESTAMP},
+      GMT_MODIFIED = #{gmtModified,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
